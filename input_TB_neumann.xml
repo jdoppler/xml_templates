@@ -43,7 +43,7 @@
         <param name="prepend_zero">0</param>
         <object type="jpg_image" name="processor_0">
             <object type="default_palette" name="palette">
-                <param name="scale">30000.</param>
+                <param name="scale"> $L/($dx*$dy) </param>
             </object>
         </object>
     </object>
