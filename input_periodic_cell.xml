@@ -40,7 +40,7 @@
     <object type="Image" name="image">
         <param name="write_potential">1</param>
         <param name="write_geometry">1</param>
-        <param name="zoom">1.0</param>
+        <param name="zoom">0.25</param>
         <param name="prepend_zero">0</param>
         <object type="jpg_image" name="processor_0">
             <object type="default_palette" name="palette">
@@ -157,7 +157,7 @@
     <!--- geometry/potential image -->
     <object type="Image" name="job_2">
         <link name="geometry">geometry</link>
-        <param name="zoom">1</param>
+        <param name="zoom">0.25</param>
         <param name="write_geometry">1</param>
         <param name="write_potential">1</param>
         <param name="subtract_minimum">0</param>
