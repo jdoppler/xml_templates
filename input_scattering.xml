@@ -135,7 +135,7 @@
             <!--     <param name="nx">$r_nx</param> -->
             <!--     <param name="nx_part"> nx_part </param> -->
             <!--     <insert name="H">H_Absorber</insert> -->
-            <!-- </object> -->
+        <!-- </object> -->
     </object>
 
     <object type="Streuproblem" name="job_0">
