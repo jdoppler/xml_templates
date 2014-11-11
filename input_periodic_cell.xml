@@ -1,6 +1,9 @@
 <?xml version="1.0"?>
 <object type="Parameters" name="Eingabe">
 
+    <!-- global simulation name -->
+    <param name="file"> sine_boundary </param>
+
     <object type="Parameters" name="settings">
         <param name="modes"> modes </param>
         <param name="points_per_halfwave"> pphw </param>
@@ -33,9 +36,7 @@
         <param name="do_picture_slices"> 1 </param>
     </object>
 
-    <param name="file"> sine_boundary </param>
-
-    <!-- image -->
+    <!-- wavefunction image -->
     <object type="Image" name="image">
         <param name="write_potential">1</param>
         <param name="write_geometry">1</param>
@@ -134,52 +135,30 @@
             <!--     <param name="nx">$r_nx</param> -->
             <!--     <param name="nx_part"> nx_part </param> -->
             <!--     <insert name="H">H_Absorber</insert> -->
-            <!-- </object> -->
+        <!-- </object> -->
     </object>
 
-    <object type="Streuproblem" name="job_0">
+    <object type="forcegreencalc" name="job_0">
         <import>settings</import>
-
-        <param name="EF"> $kF*$kF/2.</param>
-
-        <param name="nx_lead">$lead_length / $dx</param>
-
-        <insert name="left_lead"> H </insert>
-        <insert name="right_lead"> H </insert>
-
-        <insert name="geometry"> geometry </insert>
-
-        <insert name="image"> image </insert>
-        <param name="pics_min"> 0 </param>
-        <param name="pics_step"> 1 </param>
-        <param name="pics_N"> 10 </param>
-
-        <object type="Interface" name="left_interface">
-            <param name="ist_L"> 0 </param>
-            <param name="ist_R"> 0 </param>
-            <insert name="HI"> H </insert>
-        </object>
-
-        <object type="Interface" name="right_interface">
+        <link name="rect">rect_0</link>
+        <param name="EF"> $kF*$kF/2. </param>
+    </object>
+    <object type="lead_states" name="job_1">
+        <import>settings</import>
+        <param name="EF"> $kF*$kF/2. </param>
+        <object type="periodic_cell_Hamiltonian" name="H">
             <import>settings</import>
-            <param name="ist_L"> 0 </param>
-            <param name="ist_R"> 0 </param>
-            <insert name="HI"> H </insert>
+            <insert name="rect">rect_0</insert>
+            <param name="EF"> $kF*$kF/2. </param>
         </object>
-
-        <!-- write complex transmission/reflection coefficients -->
-        <object type="Full_ascii" name="writer_0"></object>
-        <!-- write total transmission/reflection probabilities -->
-        <object type="S_Total" name="writer_1"></object>
-        <!--- output full S-matrix -->
-        <object type="streuproblem_post_printSmatrices" name="postprocessor"></object>
     </object>
 
-    <object type="Image" name="job_1">
+    <!--- geometry/potential image -->
+    <object type="Image" name="job_2">
         <link name="geometry">geometry</link>
         <param name="zoom">1</param>
         <param name="write_geometry">1</param>
-        <param name="write_potential">0</param>
+        <param name="write_potential">1</param>
         <param name="subtract_minimum">0</param>
         <param name="subtract_average">0</param>
         <param name="prepend_zero">1</param>
