@@ -1,0 +1,197 @@
+<?xml version="1.0"?>
+<object type="Parameters" name="Eingabe">
+
+    <object type="Parameters" name="settings">
+        <param name="modes"> modes </param>
+        <param name="points_per_halfwave"> pphw </param>
+
+        <param name="W"> 1.0 </param>
+        <param name="L"> L </param>
+        <param name="lead_width"> $W </param>
+
+        <param name="kF"> $modes*$pi/$lead_width </param>
+        <param name="lead_length"> $W </param>
+        <param name="nyout"> $points_per_halfwave*$modes </param>
+        <param name="dx"> $W/($nyout+1) </param>
+        <param name="dy"> $dx </param>
+        <param name="pi"> 3.1415928 </param>
+        <param name="r_ny"> $W/$dx </param>
+        <param name="r_nx"> $L/$dx </param>
+
+        <!-- real/imaginary potential -->
+        <param name="Kappa0"> 0.0 </param>
+        <param name="Gamma0"> Gamma0 </param>
+
+        <!-- boundary vectors -->
+        <param name="N_file"> N_file </param>
+        <param name="upper_file"> file_upper </param>
+        <param name="lower_file"> file_lower </param>
+
+        <!-- parallelize Dyson scheme -->
+        <param name="do_single_slices"> 2 </param>
+        <!-- parallelize wavefunction plots -->
+        <param name="do_picture_slices"> 1 </param>
+    </object>
+
+    <param name="file"> sine_boundary </param>
+
+    <!-- image -->
+    <object type="Image" name="image">
+        <param name="write_potential">1</param>
+        <param name="write_geometry">1</param>
+        <param name="zoom">1.0</param>
+        <param name="prepend_zero">0</param>
+        <object type="jpg_image" name="processor_0">
+            <object type="default_palette" name="palette">
+                <param name="scale">30000.</param>
+            </object>
+        </object>
+    </object>
+
+    <!-- cavity -->
+    <object type="Block" name="geometry">
+        <object type="Tight_Binding" name="H">
+            <import>settings</import>
+            <param name="ny"> $r_ny</param>
+            <param name="neumann"> neumann </param>
+        </object>
+        <!-- <object type="Dense_Boundary" name="H"> -->
+            <!--     <import>settings</import> -->
+            <!--     <param name="ny"> $r_ny</param> -->
+            <!--     <param name="neumann"> 1 </param> -->
+            <!--     <param name="dy_f"> $dy </param> -->
+            <!--     <param name="dy_r"> $dy*10 </param> -->
+            <!--     <param name="epsilon"> 0.125 </param> -->
+            <!-- </object> -->
+
+        <!-- border hamiltonian -->
+        <object type="Border_Hamiltonian" name="H_cut">
+            <param name="neumann"> neumann </param>
+
+            <!-- upper boundary -->
+            <object type="modify_vector" name="upper">
+                <object type="input_vector" name="data">
+                    <import>settings</import>
+                    <param name="N">$N_file</param>
+                    <param name="file"> #upper_file </param>
+                    <param name="format">%*lf %lf</param>
+                </object>
+                <param name="output">upper.dat</param>
+                <import>settings</import>
+                <param name="f(x)">(x-$W)/$dy</param>
+                <param name="i(x)">x*$dy/$L*$N_file</param>
+            </object>
+
+            <!-- lower boundary -->
+            <object type="modify_vector" name="lower">
+                <object type="input_vector" name="data">
+                    <import>settings</import>
+                    <param name="N">$N_file</param>
+                    <param name="file"> #lower_file </param>
+                    <param name="format">%*lf %lf</param>
+                </object>
+                <param name="output">lower.dat</param>
+                <import>settings</import>
+                <param name="f(x)">-x/$dy</param>
+                <param name="i(x)">x*$dy/$L*$N_file</param>
+            </object>
+            <insert name="sub_H">H</insert>
+        </object>
+
+        <!-- complex potential -->
+        <object type="absorbing_lower_Potential" name="Absorber">
+            <import>settings</import>
+
+            <param name="Kappa"> $Kappa0 </param>
+
+            <!-- conversion Schroedinger equation <-> Helmholtz equation -->
+            <param name="Gamma"> (-1) * $kF * $Gamma0/2. </param>
+
+            <param name="real_up">$Kappa</param>
+            <param name="imag_up">$Gamma</param>
+
+            <param name="real_low">$Kappa</param>
+            <param name="imag_low">$Gamma</param>
+
+            <object type="parsed_vector" name="shape">
+                <param name="N">1</param>
+                <param name="v[i]">0.</param>
+            </object>            
+        </object>
+
+        <object type="ExtPot_Decorator" name="H_Absorber">
+            <link name="sub_H">H_cut</link>
+            <link name="Potential">Absorber</link>
+        </object>
+
+        <object type="Rectangle" name="rect_0">
+            <import>settings</import>
+            <param name="nx">$r_nx</param>
+            <insert name="H">H_Absorber</insert>
+        </object>
+        <!-- <object type="multipart_Rectangle" name="rect_0"> -->
+            <!--     <import>settings</import> -->
+            <!--     <param name="nx">$r_nx</param> -->
+            <!--     <param name="nx_part"> nx_part </param> -->
+            <!--     <insert name="H">H_Absorber</insert> -->
+            <!-- </object> -->
+    </object>
+
+    <object type="Streuproblem" name="job_0">
+        <import>settings</import>
+
+        <param name="EF"> $kF*$kF/2.</param>
+
+        <param name="nx_lead">$lead_length / $dx</param>
+
+        <insert name="left_lead"> H </insert>
+        <insert name="right_lead"> H </insert>
+
+        <insert name="geometry"> geometry </insert>
+
+        <insert name="image"> image </insert>
+        <param name="pics_min"> 0 </param>
+        <param name="pics_step"> 1 </param>
+        <param name="pics_N"> 10 </param>
+
+        <object type="Interface" name="left_interface">
+            <param name="ist_L"> 0 </param>
+            <param name="ist_R"> 0 </param>
+            <insert name="HI"> H </insert>
+        </object>
+
+        <object type="Interface" name="right_interface">
+            <import>settings</import>
+            <param name="ist_L"> 0 </param>
+            <param name="ist_R"> 0 </param>
+            <insert name="HI"> H </insert>
+        </object>
+
+        <!-- write complex transmission/reflection coefficients -->
+        <object type="Full_ascii" name="writer_0"></object>
+        <!-- write total transmission/reflection probabilities -->
+        <object type="S_Total" name="writer_1"></object>
+        <!--- output full S-matrix -->
+        <object type="streuproblem_post_printSmatrices" name="postprocessor"></object>
+    </object>
+
+    <object type="Image" name="job_1">
+        <link name="geometry">geometry</link>
+        <param name="zoom">1</param>
+        <param name="write_geometry">1</param>
+        <param name="write_potential">0</param>
+        <param name="subtract_minimum">0</param>
+        <param name="subtract_average">0</param>
+        <param name="prepend_zero">1</param>
+        <!-- <object type="jpg_image" name="processor_0"> -->
+            <!--     <param name="ppm_to_jpg">0</param> -->
+            <!--     <object type="height_palette" name="palette"></object> -->
+        <!-- </object> -->
+        <object type="jpg_image" name="processor_0">
+            <param name="ppm_to_jpg">1</param>
+            <object type="default_palette" name="palette">
+                <param name="scale">0.0</param>
+            </object>
+        </object>
+    </object> 
+</object>
