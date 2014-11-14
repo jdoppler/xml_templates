@@ -40,7 +40,7 @@
     <object type="Image" name="image">
         <param name="write_potential">1</param>
         <param name="write_geometry">1</param>
-        <param name="zoom">0.25</param>
+        <param name="zoom">1.0</param>
         <param name="prepend_zero">0</param>
         <object type="jpg_image" name="processor_0">
             <object type="default_palette" name="palette">
@@ -150,6 +150,14 @@
         <object type="periodic_cell_Hamiltonian" name="H">
             <import>settings</import>
             <insert name="rect">rect_0</insert>
+
+            <object type="Interface" name="interface">
+                <import> settings </import>
+                <param name="ist_L">0</param>
+                <param name="ist_R">0</param>
+                <insert name="HI">geometry/H</insert>
+            </object>
+
             <param name="EF"> $kF*$kF/2. </param>
         </object>
     </object>
@@ -157,7 +165,7 @@
     <!--- geometry/potential image -->
     <object type="Image" name="job_2">
         <link name="geometry">geometry</link>
-        <param name="zoom">0.25</param>
+        <param name="zoom">1.0</param>
         <param name="write_geometry">1</param>
         <param name="write_potential">1</param>
         <param name="subtract_minimum">0</param>
