@@ -53,8 +53,8 @@
     <!-- cavity -->
     <object type="Block" name="geometry">
         <object type="Tight_Binding" name="H">
-            <import>settings</import>
-            <param name="ny"> $r_ny</param>
+            <import> settings </import>
+            <param name="ny"> $r_ny </param>
             <param name="neumann"> neumann </param>
         </object>
         <!-- <object type="Dense_Boundary" name="H"> -->
