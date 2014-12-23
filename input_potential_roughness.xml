@@ -2,7 +2,7 @@
 <object type="Parameters" name="Eingabe">
 
     <!-- global simulation name -->
-    <param name="file">complex_potential</param>
+    <param name="file"> complex_potential </param>
 
     <object type="Parameters" name="settings">
         <param name="modes"> modes </param>
