@@ -75,8 +75,8 @@
                     <param name="file"> #upper_file </param>
                     <param name="format"> %*lf %lf </param>
                 </object>
-                <param name="output">upper.dat</param>
                 <import>settings</import>
+                <param name="output"> upper.dat </param>
                 <param name="f(x)"> (x-$W)/$dx </param>
                 <param name="i(x)"> x*$N_file_profile/$r_nx </param>
             </object>
@@ -89,8 +89,8 @@
                     <param name="file"> #lower_file </param>
                     <param name="format"> %*lf %lf </param>
                 </object>
-                <param name="output"> lower.dat </param>
                 <import> settings </import>
+                <param name="output"> lower.dat </param>
                 <param name="f(x)"> -x/$dx </param>
                 <param name="i(x)"> x*$N_file_profile/$r_nx </param>
             </object>
