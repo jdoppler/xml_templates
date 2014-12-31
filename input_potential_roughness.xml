@@ -103,16 +103,25 @@
             <object type="complex_vector_step_function2d" name="function">
 
                 <!-- real part -->
-                <object type="modify_vector" name="vector">
-                    <object type="input_vector" name="data">
-                        <import> settings </import>
-                        <param name="file"> #potential_real </param>
-                        <param name="N"> $N_file_potential </param>
-                        <param name="format"> %*lf %lf </param>
-                    </object>
+                <!-- <object type="modify_vector" name="vector"> -->
+                <!--     <object type="input_vector" name="data"> -->
+                <!--         <import> settings </import> -->
+                <!--         <param name="file"> #potential_real </param> -->
+                <!--         <param name="N"> $N_file_potential </param> -->
+                <!--         <param name="format"> %*lf %lf </param> -->
+                <!--     </object> -->
+                <!--     <import> settings </import> -->
+                <!--     <param name="f(x)"> 0.0*x </param> -->
+                <!--     <param name="i(x)"> x/$r_nx/$r_ny*$N_file_potential </param> -->
+                <!-- </object> -->
+
+                <object type="const_vector" name="vector">
                     <import> settings </import>
-                    <param name="f(x)"> 0.0*x </param>
-                    <param name="i(x)"> x/$r_nx/$r_ny*$N_file_potential </param>
+                    <param name="nx"> $r_nx </param>
+                    <param name="ny"> $r_ny </param>
+                    <param name="potential"> $Kappa0 </param>
+                    <param name="border_width"> 0.0 </param>
+                    <param name="border_pot"> 0.0 </param>
                 </object>
 
                 <!-- imaginary part -->
