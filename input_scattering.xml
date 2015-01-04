@@ -107,7 +107,7 @@
             <param name="Kappa"> $Kappa0 </param>
 
             <!-- conversion Schroedinger equation <-> Helmholtz equation -->
-            <param name="Gamma"> (-1) * $kF * $Gamma0/2. </param>
+            <param name="Gamma"> -0.5 * $kF * $Gamma0 </param>
 
             <param name="real_up">$Kappa</param>
             <param name="imag_up">$Gamma</param>
