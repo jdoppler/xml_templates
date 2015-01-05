@@ -137,6 +137,15 @@
                     <param name="i(x)"> x/$r_nx/$r_ny*$N_file_potential </param>
                 </object>
 
+                <!-- <object type="const_vector" name="vector_imag"> -->
+                <!--     <import> settings </import> -->
+                <!--     <param name="nx"> $r_nx </param> -->
+                <!--     <param name="ny"> $r_ny </param> -->
+                <!--     <param name="potential"> $Gamma0 </param> -->
+                <!--     <param name="border_width"> 0.0 </param> -->
+                <!--     <param name="border_pot"> 0.0 </param> -->
+                <!-- </object> -->
+
                 <!-- take care that Wx, Wy correspond to L=r_nx*dx, W=r_ny*dy! -->
                 <import> settings </import>
                 <param name="Wx"> $L </param>
