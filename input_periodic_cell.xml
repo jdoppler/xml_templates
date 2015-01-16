@@ -31,7 +31,7 @@
         <param name="lower_file"> file_lower </param>
 
         <!-- parallelize Dyson scheme -->
-        <param name="do_single_slices"> 2 </param>
+        <param name="do_single_slices"> 4 </param>
         <!-- parallelize wavefunction plots -->
         <param name="do_picture_slices"> 1 </param>
     </object>
@@ -52,6 +52,7 @@
 
     <!-- cavity -->
     <object type="Block" name="geometry">
+        <import>settings</import>
         <object type="Tight_Binding" name="H">
             <import>settings</import>
             <param name="ny"> $r_ny</param>
@@ -68,6 +69,7 @@
 
         <!-- border hamiltonian -->
         <object type="Border_Hamiltonian" name="H_cut">
+            <import>settings</import>
             <param name="neumann"> neumann </param>
 
             <!-- upper boundary -->
@@ -122,6 +124,7 @@
         </object>
 
         <object type="ExtPot_Decorator" name="H_Absorber">
+            <import>settings</import>
             <link name="sub_H">H_cut</link>
             <link name="Potential">Absorber</link>
         </object>
