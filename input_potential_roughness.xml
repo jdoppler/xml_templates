@@ -21,6 +21,9 @@
         <param name="r_ny"> $W/$dx </param>
         <param name="r_nx"> $L/$dx </param>
 
+        <!-- use Neumann or Dirichlet boundary conditions -->
+        <param name="neumann"> neumann </param>
+
         <!-- real/imaginary potential -->
         <param name="Kappa0"> 0.0 </param>
         <param name="Gamma0"> Gamma0 </param>
@@ -60,12 +63,13 @@
         <object type="Tight_Binding" name="H">
             <import> settings </import>
             <param name="ny"> $r_ny </param>
-            <param name="neumann"> neumann </param>
+            <param name="neumann"> $neumann </param>
         </object>
 
         <!-- border hamiltonian -->
         <object type="Border_Hamiltonian" name="H_cut">
-            <param name="neumann"> neumann </param>
+            <import> settings </import>
+            <param name="neumann"> $neumann </param>
 
             <!-- upper boundary -->
             <object type="modify_vector" name="upper">
