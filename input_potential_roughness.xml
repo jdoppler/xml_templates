@@ -132,7 +132,7 @@
                 <object type="modify_vector" name="vector_imag">
                     <object type="input_vector" name="data">
                         <import> settings </import>
-                        <param name="file"> #imag_potential </param>
+                        <param name="file"> #potential_imag </param>
                         <param name="N"> $N_file_potential </param>
                         <param name="format"> %*lf %lf </param>
                     </object>
