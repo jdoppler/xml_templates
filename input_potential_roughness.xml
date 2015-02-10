@@ -39,7 +39,7 @@
         <param name="boundary_lower"> boundary_lower </param>
 
         <!-- parallelize Dyson scheme -->
-        <param name="do_single_slices"> 2 </param>
+        <param name="do_single_slices"> 4 </param>
         <!-- parallelize wavefunction plots -->
         <param name="do_picture_slices"> 1 </param>
     </object>
