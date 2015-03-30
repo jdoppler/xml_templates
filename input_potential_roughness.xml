@@ -117,17 +117,25 @@
                     <param name="border_pot"> 0.0 </param>
                 </object>
                 <!-- imaginary potential -->
-                <object type="modify_vector" name="data_imag">
-                    <object type="input_vector" name="data">
-                        <import> settings </import>
-                        <param name="file"> #potential_imag </param>
-                        <param name="N"> $N_file_potential </param>
-                        <param name="format"> %*lf %lf </param>
-                    </object>
+                <object type="const_vector" name="data_imag">
                     <import> settings </import>
-                    <param name="f(x)"> $Gamma0*x </param>
-                    <param name="i(x)"> x/$r_nx/$r_ny*$N_file_potential </param>
+                    <param name="nx"> $r_nx </param>
+                    <param name="ny"> $r_ny </param>
+                    <param name="potential"> $Gamma0 </param>
+                    <param name="border_width"> 0.0 </param>
+                    <param name="border_pot"> 0.0 </param>
                 </object>
+                <!-- <object type="modify_vector" name="data_imag"> -->
+                <!--     <object type="input_vector" name="data"> -->
+                <!--         <import> settings </import> -->
+                <!--         <param name="file"> #potential_imag </param> -->
+                <!--         <param name="N"> $N_file_potential </param> -->
+                <!--         <param name="format"> %*lf %lf </param> -->
+                <!--     </object> -->
+                <!--     <import> settings </import> -->
+                <!--     <param name="f(x)"> $Gamma0*x </param> -->
+                <!--     <param name="i(x)"> x/$r_nx/$r_ny*$N_file_potential </param> -->
+                <!-- </object> -->
         </object>
 
         <!-- <object type="xy_function2d_Potential" name="Absorber"> -->
