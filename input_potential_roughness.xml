@@ -211,7 +211,7 @@
         <param name="from_right"> 0 </param>
 
         <param name="EF"> $kF*$kF/2. </param>
-        <param name="nx_lead"> $lead_length/$dx </param>
+        <param name="nx_lead"> 0.0 </param>
 
         <param name="imode_min"> 0 </param>
         <param name="imode_step"> 1 </param>
@@ -253,7 +253,7 @@
         <param name="from_right"> 1 </param>
         <param name="EF"> $kF*$kF/2. </param>
         <param name="from_right"> 1 </param>
-        <param name="nx_lead"> 0 </param>
+        <param name="nx_lead"> 0.0 </param>
 
         <param name="imode_min"> 0 </param>
         <param name="imode_step"> 1 </param>
