@@ -2,14 +2,14 @@
 <object type="Parameters" name="Eingabe">
 
     <!-- global simulation name -->
-    <param name="file"> complex_potential </param>
+    <param name="file"> NAME </param>
 
     <object type="Parameters" name="settings">
-        <param name="modes"> modes </param>
-        <param name="points_per_halfwave"> pphw </param>
+        <param name="modes"> MODES </param>
+        <param name="points_per_halfwave"> PPHW </param>
 
-        <param name="W"> 1.0 </param>
-        <param name="L"> L </param>
+        <param name="W"> WIDTH </param>
+        <param name="L"> LENGTH </param>
         <param name="lead_width"> $W </param>
 
         <param name="kF"> $modes*$pi/$lead_width </param>
@@ -22,21 +22,21 @@
         <param name="r_nx"> $L/$dx </param>
 
         <!-- use Neumann or Dirichlet boundary conditions -->
-        <param name="neumann"> neumann </param>
+        <param name="neumann"> NEUMANN </param>
 
         <!-- real/imaginary potential -->
         <param name="Kappa0"> 0.0 </param>
-        <param name="Gamma0"> Gamma0 </param>
+        <param name="Gamma0"> GAMMA0 </param>
 
         <!-- potential vectors -->
-        <param name="N_file_potential"> N_file_potential </param>
-        <param name="potential_real"> potential_real </param>
-        <param name="potential_imag"> potential_imag </param>
+        <param name="N_file_potential"> N_FILE_POTENTIAL </param>
+        <param name="potential_real"> POTENTIAL_REAL </param>
+        <param name="potential_imag"> POTENTIAL_IMAG </param>
 
         <!-- boundary vectors -->
-        <param name="N_file_boundary"> N_file_boundary </param>
-        <param name="boundary_upper"> boundary_upper </param>
-        <param name="boundary_lower"> boundary_lower </param>
+        <param name="N_file_boundary"> N_FILE_BOUNDARY </param>
+        <param name="boundary_upper"> BOUNDARY_UPPER </param>
+        <param name="boundary_lower"> BOUNDARY_LOWER </param>
 
         <!-- parallelize Dyson scheme -->
         <param name="do_single_slices"> 4 </param>
@@ -251,8 +251,8 @@
         <import> settings </import>
         <param name="job_id"> from_right </param>
         <param name="from_right"> 1 </param>
+
         <param name="EF"> $kF*$kF/2. </param>
-        <param name="from_right"> 1 </param>
         <param name="nx_lead"> 0.0 </param>
 
         <param name="imode_min"> 0 </param>

@@ -2,14 +2,14 @@
 <object type="Parameters" name="Eingabe">
 
     <!-- global simulation name -->
-    <param name="file"> sine_boundary </param>
+    <param name="file"> NAME </param>
 
     <object type="Parameters" name="settings">
-        <param name="modes"> modes </param>
-        <param name="points_per_halfwave"> pphw </param>
+        <param name="modes"> MODES </param>
+        <param name="points_per_halfwave"> PPHW </param>
 
-        <param name="W"> 1.0 </param>
-        <param name="L"> L </param>
+        <param name="W"> WIDTH </param>
+        <param name="L"> LENGTH </param>
         <param name="lead_width"> $W </param>
 
         <param name="kF"> $modes*$pi/$lead_width </param>
@@ -21,14 +21,17 @@
         <param name="r_ny"> $W/$dx </param>
         <param name="r_nx"> $L/$dx </param>
 
+        <!-- use Neumann or Dirichlet boundary conditions -->
+        <param name="neumann"> NEUMANN </param>
+
         <!-- real/imaginary potential -->
         <param name="Kappa0"> 0.0 </param>
-        <param name="Gamma0"> Gamma0 </param>
+        <param name="Gamma0"> GAMMA0 </param>
 
         <!-- boundary vectors -->
-        <param name="N_file"> N_file </param>
-        <param name="upper_file"> file_upper </param>
-        <param name="lower_file"> file_lower </param>
+        <param name="N_file_boundary"> N_FILE_BOUNDARY </param>
+        <param name="boundary_upper"> BOUNDARY_UPPER </param>
+        <param name="boundary_lower"> BOUNDARY_LOWER </param>
 
         <!-- parallelize Dyson scheme -->
         <param name="do_single_slices"> 4 </param>
