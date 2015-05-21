@@ -30,27 +30,31 @@
 
         <!-- boundary vectors -->
         <param name="N_file"> N_FILE_BOUNDARY </param>
-        <param name="upper_file"> FILE_UPPER </param>
-        <param name="lower_file"> FILE_LOWER </param>
+        <param name="upper_file"> BOUNDARY_UPPER </param>
+        <param name="lower_file"> BOUNDARY_LOWER </param>
 
         <!-- parallelize Dyson scheme -->
-        <param name="do_single_slices"> 2 </param>
+        <param name="do_single_slices"> 4 </param>
         <!-- parallelize wavefunction plots -->
         <param name="do_picture_slices"> 1 </param>
     </object>
 
     <!-- wavefunction image -->
     <object type="Image" name="image">
-        <param name="write_potential">1</param>
-        <param name="write_geometry">1</param>
-        <param name="zoom">0.25</param>
-        <param name="prepend_zero">0</param>
+        <param name="write_potential"> 1 </param>
+        <param name="write_geometry"> 1 </param>
+        <param name="zoom"> 1 </param>
+        <param name="prepend_zero"> 0 </param>
         <object type="jpg_image" name="processor_0">
             <object type="default_palette" name="palette">
-                <import>settings</import>
+                <import> settings </import>
                 <param name="scale"> $L/($dx*$dy) </param>
             </object>
         </object>
+        <!-- write .ascii image with n_x, n_x, Re(psi), Im(psi) -->
+        <!-- <object type="ascii_image" name="processor_1"> -->
+        <!--     <param name="write_imag"> 1 </param> -->
+        <!-- </object> -->
     </object>
 
     <!-- cavity -->
@@ -67,7 +71,7 @@
             <!--     <param name="dy_f"> $dy </param> -->
             <!--     <param name="dy_r"> $dy*10 </param> -->
             <!--     <param name="epsilon"> 0.125 </param> -->
-            <!-- </object> -->
+        <!-- </object> -->
 
         <!-- border hamiltonian -->
         <object type="Border_Hamiltonian" name="H_cut">
@@ -175,26 +179,23 @@
         <insert name="image"> image </insert>
         <param name="pics_min"> 0 </param>
         <param name="pics_step"> 1 </param>
-        <param name="pics_N"> 10 </param>
+        <param name="pics_N"> floor($modes) </param>
     </object>
 
     <!--- geometry/potential image -->
     <object type="Image" name="job_1">
-        <link name="geometry">geometry</link>
-        <param name="zoom">0.25</param>
-        <param name="write_geometry">1</param>
-        <param name="write_potential">1</param>
-        <param name="subtract_minimum">0</param>
-        <param name="subtract_average">0</param>
-        <param name="prepend_zero">1</param>
+        <link name="geometry"> geometry </link>
+        <param name="zoom"> 1 </param>
+        <param name="write_geometry"> 1 </param>
+        <param name="write_potential"> 1 </param>
         <!-- <object type="jpg_image" name="processor_0"> -->
             <!--     <param name="ppm_to_jpg">0</param> -->
             <!--     <object type="height_palette" name="palette"></object> -->
         <!-- </object> -->
         <object type="jpg_image" name="processor_0">
-            <param name="ppm_to_jpg">1</param>
+            <param name="ppm_to_jpg"> 1 </param>
             <object type="default_palette" name="palette">
-                <param name="scale">0.0</param>
+                <param name="scale"> 0.0 </param>
             </object>
         </object>
     </object>

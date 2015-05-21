@@ -217,6 +217,8 @@
         <param name="imode_step"> 1 </param>
         <param name="imode_N"> floor($modes) </param>
 
+        <!-- draw images -->
+        <!-- <link name="image"> image </link> -->
         <param name="pics_min"> 0 </param>
         <param name="pics_step"> 1 </param>
         <param name="pics_N"> floor($modes) </param>
@@ -225,7 +227,6 @@
         <insert name="right_lead"> H </insert>
 
         <link name="geometry"> geometry </link>
-        <!-- <link name="image"> image </link> -->
 
         <object type="Interface" name="left_interface">
             <param name="ist_L"> 0 </param>
