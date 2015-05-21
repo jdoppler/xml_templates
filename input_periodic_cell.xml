@@ -68,7 +68,7 @@
             <!--     <param name="dy_f"> $dy </param> -->
             <!--     <param name="dy_r"> $dy*10 </param> -->
             <!--     <param name="epsilon"> 0.125 </param> -->
-            <!-- </object> -->
+        <!-- </object> -->
 
         <!-- border hamiltonian -->
         <object type="Border_Hamiltonian" name="H_cut">
