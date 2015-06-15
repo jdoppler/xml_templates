@@ -51,7 +51,7 @@
         <param name="zoom"> 1 </param>
         <param name="prepend_zero"> 0 </param>
         <object type="jpg_image" name="processor_0">
-            <object type="default_palette" name="palette">
+            <object type="parula_palette" name="palette">
                 <import> settings </import>
                 <param name="scale"> $L/($dx*$dy) </param>
             </object>
@@ -305,7 +305,7 @@
         <param name="write_potential">1</param>
 
         <object type="jpg_image" name="processor_0">
-            <object type="default_palette" name="palette">
+            <object type="parula_palette" name="palette">
                 <import> settings </import>
                 <param name="scale"> 10./($dx*$dy) </param>
             </object>

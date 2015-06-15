@@ -46,7 +46,7 @@
         <param name="zoom">1.0</param>
         <param name="prepend_zero">0</param>
         <object type="jpg_image" name="processor_0">
-            <object type="default_palette" name="palette">
+            <object type="parula_palette" name="palette">
                 <import>settings</import>
                 <param name="scale"> $L/($dx*$dy) </param>
             </object>
@@ -183,9 +183,9 @@
         <!-- </object> -->
         <object type="jpg_image" name="processor_0">
             <param name="ppm_to_jpg">1</param>
-            <object type="default_palette" name="palette">
+            <object type="parula_palette" name="palette">
                 <param name="scale">0.0</param>
             </object>
         </object>
-    </object> 
+    </object>
 </object>
