@@ -22,7 +22,7 @@
         <param name="r_nx"> $L/$dx </param>
 
         <!-- use Neumann or Dirichlet boundary conditions -->
-        <param name="neumann"> 0 </param>
+        <param name="neumann"> NEUMANN </param>
 
         <!-- real/imaginary potential -->
         <param name="Kappa0"> 0.0 </param>
@@ -72,7 +72,6 @@
         <!-- border hamiltonian -->
         <object type="Border_Hamiltonian" name="H_cut">
             <import> settings </import>
-            <param name="neumann"> neumann </param>
 
             <!-- upper boundary -->
             <object type="modify_vector" name="upper">

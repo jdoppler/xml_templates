@@ -63,13 +63,11 @@
         <object type="Tight_Binding" name="H">
             <import> settings </import>
             <param name="ny"> $r_ny </param>
-            <param name="neumann"> neumann </param>
         </object>
 
         <!-- border hamiltonian -->
         <object type="Border_Hamiltonian" name="H_cut">
             <import> settings </import>
-            <param name="neumann"> neumann </param>
 
             <!-- upper boundary -->
             <object type="modify_vector" name="upper">
