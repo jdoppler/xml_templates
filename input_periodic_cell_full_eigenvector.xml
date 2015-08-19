@@ -223,7 +223,7 @@
         <param name="modeindex_min"> 0 </param>
         <param name="modeindex_step"> 1 </param>
         <param name="modeindex_N"> floor($modes) </param>
-    </object>¬
+    </object>
 
     <object type="ascii_states" name="job_1">
         <link name="geometry">geometry</link>
