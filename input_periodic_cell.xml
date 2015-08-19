@@ -80,7 +80,7 @@
                 <object type="input_vector" name="data">
                     <import>settings</import>
                     <param name="N">$N_file</param>
-                    <param name="file"> #upper_file </param>
+                    <param name="file"> #boundary_upper </param>
                     <param name="format">%*lf %lf</param>
                 </object>
                 <param name="output">upper.dat</param>
@@ -94,7 +94,7 @@
                 <object type="input_vector" name="data">
                     <import>settings</import>
                     <param name="N">$N_file</param>
-                    <param name="file"> #lower_file </param>
+                    <param name="file"> #boundary_lower </param>
                     <param name="format">%*lf %lf</param>
                 </object>
                 <param name="output">lower.dat</param>
@@ -123,7 +123,7 @@
             <object type="parsed_vector" name="shape">
                 <param name="N">1</param>
                 <param name="v[i]">0.</param>
-            </object>            
+            </object>
         </object>
 
         <object type="ExtPot_Decorator" name="H_Absorber">
