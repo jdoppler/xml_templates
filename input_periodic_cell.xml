@@ -41,68 +41,64 @@
 
     <!-- wavefunction image -->
     <object type="Image" name="image">
-        <param name="write_potential">1</param>
-        <param name="write_geometry">1</param>
-        <param name="zoom">1.0</param>
-        <param name="prepend_zero">0</param>
+        <param name="write_potential"> 1 </param>
+        <param name="write_geometry"> 1 </param>
+        <param name="zoom"> 1 </param>
+        <param name="prepend_zero"> 0 </param>
         <object type="jpg_image" name="processor_0">
             <object type="parula_palette" name="palette">
-                <import>settings</import>
+                <import> settings </import>
                 <param name="scale"> $L/($dx*$dy) </param>
             </object>
         </object>
+        <!-- write .ascii image with n_x, n_x, Re(psi), Im(psi) -->
+        <!-- <object type="ascii_image" name="processor_1"> -->
+        <!--     <param name="write_imag"> 1 </param> -->
+        <!-- </object> -->
     </object>
 
     <!-- cavity -->
     <object type="Block" name="geometry">
         <import>settings</import>
         <object type="Tight_Binding" name="H">
-            <import>settings</import>
-            <param name="ny"> $r_ny</param>
+            <import> settings </import>
+            <param name="ny"> $r_ny </param>
             <param name="neumann"> neumann </param>
         </object>
-        <!-- <object type="Dense_Boundary" name="H"> -->
-            <!--     <import>settings</import> -->
-            <!--     <param name="ny"> $r_ny</param> -->
-            <!--     <param name="neumann"> 1 </param> -->
-            <!--     <param name="dy_f"> $dy </param> -->
-            <!--     <param name="dy_r"> $dy*10 </param> -->
-            <!--     <param name="epsilon"> 0.125 </param> -->
-        <!-- </object> -->
 
         <!-- border hamiltonian -->
         <object type="Border_Hamiltonian" name="H_cut">
-            <import>settings</import>
+            <import> settings </import>
             <param name="neumann"> neumann </param>
 
             <!-- upper boundary -->
             <object type="modify_vector" name="upper">
                 <object type="input_vector" name="data">
-                    <import>settings</import>
-                    <param name="N">$N_file_boundary</param>
+                    <import> settings </import>
+                    <param name="N"> $N_file_boundary </param>
                     <param name="file"> #boundary_upper </param>
-                    <param name="format">%*lf %lf</param>
+                    <param name="format"> %*lf %lf </param>
                 </object>
-                <param name="output">upper.dat</param>
                 <import>settings</import>
-                <param name="f(x)">(x-$W)/$dy</param>
-                <param name="i(x)">x*$dy/$L*$N_file_boundary</param>
+                <param name="output"> upper.dat </param>
+                <param name="f(x)"> (x-$W)/$dx </param>
+                <param name="i(x)"> x*$N_file_boundary/$r_nx </param>
             </object>
 
             <!-- lower boundary -->
             <object type="modify_vector" name="lower">
                 <object type="input_vector" name="data">
-                    <import>settings</import>
-                    <param name="N">$N_file_boundary</param>
+                    <import> settings </import>
+                    <param name="N"> $N_file_boundary </param>
                     <param name="file"> #boundary_lower </param>
-                    <param name="format">%*lf %lf</param>
+                    <param name="format"> %*lf %lf </param>
                 </object>
-                <param name="output">lower.dat</param>
-                <import>settings</import>
-                <param name="f(x)">-x/$dy</param>
-                <param name="i(x)">x*$dy/$L*$N_file_boundary</param>
+                <import> settings </import>
+                <param name="output"> lower.dat </param>
+                <param name="f(x)"> -x/$dx </param>
+                <param name="i(x)"> x*$N_file_boundary/$r_nx </param>
             </object>
-            <insert name="sub_H">H</insert>
+            <insert name="sub_H"> H </insert>
         </object>
 
         <!-- complex potential -->
@@ -127,26 +123,20 @@
         </object>
 
         <object type="ExtPot_Decorator" name="H_Absorber">
-            <import>settings</import>
-            <link name="sub_H">H_cut</link>
-            <link name="Potential">Absorber</link>
+            <import> settings </import>
+            <link name="sub_H"> H_cut </link>
+            <link name="Potential"> Absorber </link>
         </object>
 
         <object type="Rectangle" name="rect_0">
-            <import>settings</import>
+            <import> settings </import>
             <param name="nx">$r_nx</param>
             <insert name="H">H_Absorber</insert>
         </object>
-        <!-- <object type="multipart_Rectangle" name="rect_0"> -->
-            <!--     <import>settings</import> -->
-            <!--     <param name="nx">$r_nx</param> -->
-            <!--     <param name="nx_part"> nx_part </param> -->
-            <!--     <insert name="H">H_Absorber</insert> -->
-        <!-- </object> -->
     </object>
 
     <object type="forcegreencalc" name="job_0">
-        <import>settings</import>
+        <import> settings </import>
         <link name="rect">rect_0</link>
         <param name="EF"> $kF*$kF/2. </param>
     </object>
