@@ -53,7 +53,7 @@
         <object type="jpg_image" name="processor_0">
             <object type="parula_palette" name="palette">
                 <import> settings </import>
-                <param name="scale"> $L/($dx*$dy) </param>
+                <param name="scale"> 1./($dx*$dy) </param>
             </object>
         </object>
         <!-- write .ascii image with n_x, n_x, Re(psi), Im(psi) -->
@@ -202,6 +202,17 @@
             <import> settings </import>
             <param name="nx">$r_nx</param>
             <insert name="H">H_Absorber</insert>
+        </object>
+        <object type="periodic_cell_Hamiltonian" name="H_lead">
+            <import>settings</import>
+            <insert name="rect">rect_0</insert>
+            <object type="Interface" name="interface">
+                <import> settings </import>
+                <param name="ist_L">0</param>
+                <param name="ist_R">0</param>
+                <insert name="HI">geometry/H</insert>
+            </object>
+            <param name="EF"> $kF*$kF/2. </param>
         </object>
     </object>
 
