@@ -58,8 +58,8 @@
         </object>
         <!-- write .ascii image with n_x, n_x, Re(psi), Im(psi) -->
         <!-- <object type="ascii_image" name="processor_1"> -->
-        <!--     <param name="write_imag"> 1 </param> -->
-        <!-- </object> -->
+            <!--     <param name="write_imag"> 1 </param> -->
+            <!-- </object> -->
     </object>
 
     <!-- cavity -->
@@ -105,31 +105,31 @@
 
         <!-- complex potential -->
         <object type="xy_Potential" name="Absorber">
-                <!-- real potential -->
-                <object type="const_vector" name="data">
-                    <import> settings </import>
-                    <param name="nx"> $r_nx </param>
-                    <param name="ny"> $r_ny </param>
-                    <param name="potential"> $Kappa0 </param>
-                    <param name="border_width"> 0.0 </param>
-                    <param name="border_pot"> 0.0 </param>
-                </object>
-                <!-- imaginary potential -->
-                <object type="const_vector" name="data_imag">
-                    <import> settings </import>
-                    <param name="nx"> $r_nx </param>
-                    <param name="ny"> $r_ny </param>
-                    <param name="potential"> $Gamma0 </param>
-                    <param name="border_width"> 0.0 </param>
-                    <param name="border_pot"> 0.0 </param>
-                </object>
-                <!-- <object type="modify_vector" name="data_imag"> -->
+            <!-- real potential -->
+            <object type="const_vector" name="data">
+                <import> settings </import>
+                <param name="nx"> $r_nx </param>
+                <param name="ny"> $r_ny </param>
+                <param name="potential"> $Kappa0 </param>
+                <param name="border_width"> 0.0 </param>
+                <param name="border_pot"> 0.0 </param>
+            </object>
+            <!-- imaginary potential -->
+            <object type="const_vector" name="data_imag">
+                <import> settings </import>
+                <param name="nx"> $r_nx </param>
+                <param name="ny"> $r_ny </param>
+                <param name="potential"> $Gamma0 </param>
+                <param name="border_width"> 0.0 </param>
+                <param name="border_pot"> 0.0 </param>
+            </object>
+            <!-- <object type="modify_vector" name="data_imag"> -->
                 <!--     <object type="input_vector" name="data"> -->
-                <!--         <import> settings </import> -->
-                <!--         <param name="file"> #potential_imag </param> -->
-                <!--         <param name="N"> $N_file_potential </param> -->
-                <!--         <param name="format"> %*lf %lf </param> -->
-                <!--     </object> -->
+                    <!--         <import> settings </import> -->
+                    <!--         <param name="file"> #potential_imag </param> -->
+                    <!--         <param name="N"> $N_file_potential </param> -->
+                    <!--         <param name="format"> %*lf %lf </param> -->
+                    <!--     </object> -->
                 <!--     <import> settings </import> -->
                 <!--     <param name="f(x)"> $Gamma0*x </param> -->
                 <!--     <param name="i(x)"> x/$r_nx/$r_ny*$N_file_potential </param> -->
@@ -137,61 +137,61 @@
         </object>
 
         <!-- <object type="xy_function2d_Potential" name="Absorber"> -->
-        <!--     <object type="complex_vector_step_function2d" name="function"> -->
-        <!--  -->
-        <!--         <!&#45;&#45; real part &#45;&#45;> -->
-        <!--         <object type="const_vector" name="vector"> -->
-        <!--             <import> settings </import> -->
-        <!--             <param name="nx"> $r_nx </param> -->
-        <!--             <param name="ny"> $r_ny </param> -->
-        <!--             <param name="potential"> $Kappa0 </param> -->
-        <!--             <param name="border_width"> 0.0 </param> -->
-        <!--             <param name="border_pot"> 0.0 </param> -->
-        <!--         </object> -->
-        <!--  -->
-        <!--         <!&#45;&#45; imaginary part &#45;&#45;> -->
-        <!--         <object type="modify_vector" name="vector_imag"> -->
-        <!--             <object type="input_vector" name="data"> -->
-        <!--                 <import> settings </import> -->
-        <!--                 <param name="file"> #potential_imag </param> -->
-        <!--                 <param name="N"> $N_file_potential </param> -->
-        <!--                 <param name="format"> %*lf %lf </param> -->
-        <!--             </object> -->
-        <!--             <import> settings </import> -->
-        <!--             <param name="f(x)"> $Gamma0*x </param> -->
-        <!--             <param name="i(x)"> x/$r_nx/$r_ny*$N_file_potential </param> -->
-        <!--         </object> -->
-        <!--  -->
-        <!--         <!&#45;&#45; take care that Wx, Wy correspond to L=r_nx*dx, W=r_ny*dy! &#45;&#45;> -->
-        <!--         <import> settings </import> -->
-        <!--         <param name="Wx"> $L </param> -->
-        <!--         <param name="Wy"> $W </param> -->
-        <!--         <param name="ny"> $r_ny </param> -->
-        <!--  -->
-        <!--         <!&#45;&#45; real part &#45;&#45;> -->
-        <!--         <!&#45;&#45; <object type="modify_vector" name="vector"> &#45;&#45;> -->
-        <!--         <!&#45;&#45;     <object type="input_vector" name="data"> &#45;&#45;> -->
-        <!--         <!&#45;&#45;         <import> settings </import> &#45;&#45;> -->
-        <!--         <!&#45;&#45;         <param name="file"> #potential_real </param> &#45;&#45;> -->
-        <!--         <!&#45;&#45;         <param name="N"> $N_file_potential </param> &#45;&#45;> -->
-        <!--         <!&#45;&#45;         <param name="format"> %*lf %lf </param> &#45;&#45;> -->
-        <!--         <!&#45;&#45;     </object> &#45;&#45;> -->
-        <!--         <!&#45;&#45;     <import> settings </import> &#45;&#45;> -->
-        <!--         <!&#45;&#45;     <param name="f(x)"> 0.0*x </param> &#45;&#45;> -->
-        <!--         <!&#45;&#45;     <param name="i(x)"> x/$r_nx/$r_ny*$N_file_potential </param> &#45;&#45;> -->
-        <!--         <!&#45;&#45; </object> &#45;&#45;> -->
-        <!--  -->
-        <!--         <!&#45;&#45; imaginary part &#45;&#45;> -->
-        <!--         <!&#45;&#45; <object type="const_vector" name="vector_imag"> &#45;&#45;> -->
-        <!--         <!&#45;&#45;     <import> settings </import> &#45;&#45;> -->
-        <!--         <!&#45;&#45;     <param name="nx"> $r_nx </param> &#45;&#45;> -->
-        <!--         <!&#45;&#45;     <param name="ny"> $r_ny </param> &#45;&#45;> -->
-        <!--         <!&#45;&#45;     <param name="potential"> $Gamma0 </param> &#45;&#45;> -->
-        <!--         <!&#45;&#45;     <param name="border_width"> 0.0 </param> &#45;&#45;> -->
-        <!--         <!&#45;&#45;     <param name="border_pot"> 0.0 </param> &#45;&#45;> -->
-        <!--         <!&#45;&#45; </object> &#45;&#45;> -->
-        <!--     </object> -->
-        <!-- </object> -->
+            <!--     <object type="complex_vector_step_function2d" name="function"> -->
+                <!--  -->
+                <!--         <!&#45;&#45; real part &#45;&#45;> -->
+                <!--         <object type="const_vector" name="vector"> -->
+                    <!--             <import> settings </import> -->
+                    <!--             <param name="nx"> $r_nx </param> -->
+                    <!--             <param name="ny"> $r_ny </param> -->
+                    <!--             <param name="potential"> $Kappa0 </param> -->
+                    <!--             <param name="border_width"> 0.0 </param> -->
+                    <!--             <param name="border_pot"> 0.0 </param> -->
+                    <!--         </object> -->
+                <!--  -->
+                <!--         <!&#45;&#45; imaginary part &#45;&#45;> -->
+                <!--         <object type="modify_vector" name="vector_imag"> -->
+                    <!--             <object type="input_vector" name="data"> -->
+                        <!--                 <import> settings </import> -->
+                        <!--                 <param name="file"> #potential_imag </param> -->
+                        <!--                 <param name="N"> $N_file_potential </param> -->
+                        <!--                 <param name="format"> %*lf %lf </param> -->
+                        <!--             </object> -->
+                    <!--             <import> settings </import> -->
+                    <!--             <param name="f(x)"> $Gamma0*x </param> -->
+                    <!--             <param name="i(x)"> x/$r_nx/$r_ny*$N_file_potential </param> -->
+                    <!--         </object> -->
+                <!--  -->
+                <!--         <!&#45;&#45; take care that Wx, Wy correspond to L=r_nx*dx, W=r_ny*dy! &#45;&#45;> -->
+                <!--         <import> settings </import> -->
+                <!--         <param name="Wx"> $L </param> -->
+                <!--         <param name="Wy"> $W </param> -->
+                <!--         <param name="ny"> $r_ny </param> -->
+                <!--  -->
+                <!--         <!&#45;&#45; real part &#45;&#45;> -->
+                <!--         <!&#45;&#45; <object type="modify_vector" name="vector"> &#45;&#45;> -->
+                    <!--         <!&#45;&#45;     <object type="input_vector" name="data"> &#45;&#45;> -->
+                        <!--         <!&#45;&#45;         <import> settings </import> &#45;&#45;> -->
+                        <!--         <!&#45;&#45;         <param name="file"> #potential_real </param> &#45;&#45;> -->
+                        <!--         <!&#45;&#45;         <param name="N"> $N_file_potential </param> &#45;&#45;> -->
+                        <!--         <!&#45;&#45;         <param name="format"> %*lf %lf </param> &#45;&#45;> -->
+                        <!--         <!&#45;&#45;     </object> &#45;&#45;> -->
+                    <!--         <!&#45;&#45;     <import> settings </import> &#45;&#45;> -->
+                    <!--         <!&#45;&#45;     <param name="f(x)"> 0.0*x </param> &#45;&#45;> -->
+                    <!--         <!&#45;&#45;     <param name="i(x)"> x/$r_nx/$r_ny*$N_file_potential </param> &#45;&#45;> -->
+                    <!--         <!&#45;&#45; </object> &#45;&#45;> -->
+                <!--  -->
+                <!--         <!&#45;&#45; imaginary part &#45;&#45;> -->
+                <!--         <!&#45;&#45; <object type="const_vector" name="vector_imag"> &#45;&#45;> -->
+                    <!--         <!&#45;&#45;     <import> settings </import> &#45;&#45;> -->
+                    <!--         <!&#45;&#45;     <param name="nx"> $r_nx </param> &#45;&#45;> -->
+                    <!--         <!&#45;&#45;     <param name="ny"> $r_ny </param> &#45;&#45;> -->
+                    <!--         <!&#45;&#45;     <param name="potential"> $Gamma0 </param> &#45;&#45;> -->
+                    <!--         <!&#45;&#45;     <param name="border_width"> 0.0 </param> &#45;&#45;> -->
+                    <!--         <!&#45;&#45;     <param name="border_pot"> 0.0 </param> &#45;&#45;> -->
+                    <!--         <!&#45;&#45; </object> &#45;&#45;> -->
+                <!--     </object> -->
+            <!-- </object> -->
 
         <object type="ExtPot_Decorator" name="H_Absorber">
             <link name="sub_H"> H_cut </link>
@@ -216,40 +216,40 @@
         </object>
     </object>
 
-    <object type="draw_supercell" name="job_0">¬
-        <import> settings </import>¬
-        <param name="EF"> $kF*$kF/2.0 </param>¬
-        <insert name="H"> H_lead </insert>¬
-        <param name="modeindex_min"> 0 </param>¬
-        <param name="modeindex_step"> 1 </param>¬
-        <param name="modeindex_N"> floor($modes) </param>¬
+    <object type="draw_supercell" name="job_0">
+        <import> settings </import>
+        <param name="EF"> $kF*$kF/2.0 </param>
+        <insert name="H"> H_lead </insert>
+        <param name="modeindex_min"> 0 </param>
+        <param name="modeindex_step"> 1 </param>
+        <param name="modeindex_N"> floor($modes) </param>
     </object>¬
 
-    <object type="ascii_states" name="job_1">¬
-        <link name="geometry">geometry</link>¬
-        <param name="zoom">1.0</param>¬
-        <param name="n_start">0</param>¬
-        <param name="prepend_zero">1</param>¬
-    </object>¬
+    <object type="ascii_states" name="job_1">
+        <link name="geometry">geometry</link>
+        <param name="zoom">1.0</param>
+        <param name="n_start">0</param>
+        <param name="prepend_zero">1</param>
+    </object>
 
-    <object type="Image" name="job_2">¬
-        <param name="zoom">1.0</param>¬
-        <param name="n_start">0</param>¬
-        <param name="prepend_zero">1</param>¬
+    <object type="Image" name="job_2">
+        <param name="zoom">1.0</param>
+        <param name="n_start">0</param>
+        <param name="prepend_zero">1</param>
 
-        <param name="write_geometry">1</param>¬
-        <param name="write_potential">1</param>¬
+        <param name="write_geometry">1</param>
+        <param name="write_potential">1</param>
 
-        <object type="jpg_image" name="processor_0">¬
-            <object type="parula_palette" name="palette">¬
-                <import> settings </import>¬
-                <param name="scale"> 1./($dx*$dy) </param>¬
-            </object>¬
-        </object>¬
-        <!-- <object type="jpg_image" name="processor_1">¬ -->
-        <!--     <param name="ppm_to_jpg"> 0 </param>¬ -->
-        <!--     <object type="height_palette" name="palette">¬ -->
-        <!--     </object>¬ -->
-        <!-- </object>¬ -->
-    </object>¬
+        <object type="jpg_image" name="processor_0">
+            <object type="parula_palette" name="palette">
+                <import> settings </import>
+                <param name="scale"> 1./($dx*$dy) </param>
+            </object>
+        </object>
+        <!-- <object type="jpg_image" name="processor_1"> -->
+            <!--     <param name="ppm_to_jpg"> 0 </param> -->
+            <!--     <object type="height_palette" name="palette"> -->
+                <!--     </object> -->
+            <!-- </object> -->
+    </object>
 </object>
