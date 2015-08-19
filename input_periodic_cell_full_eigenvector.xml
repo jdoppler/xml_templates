@@ -254,7 +254,7 @@
     </object>
 
     <!-- plot potential -->
-    <object type="Image" name="job_4">
+    <object type="Image" name="job_3">
         <link name="geometry">geometry</link>
 
         <param name="zoom">1.0</param>
