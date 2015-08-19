@@ -252,4 +252,41 @@
                 <!--     </object> -->
             <!-- </object> -->
     </object>
+
+    <!-- plot potential -->
+    <object type="Image" name="job_4">
+        <link name="geometry">geometry</link>
+
+        <param name="zoom">1.0</param>
+        <param name="n_start">0</param>
+        <param name="prepend_zero">1</param>
+
+        <param name="write_geometry">0</param>
+        <param name="write_potential">1</param>
+
+        <!-- important to have meaningful plots! -->
+        <param name="subtract_minimum">0</param>
+        <param name="subtract_average">1</param>
+
+        <object type="jpg_image" name="processor_0">
+            <object type="complex_palette" name="palette">
+                <import> settings </import>
+                <param name="scale"> 10. </param>
+                <param name="part"> 1 </param>
+            </object>
+            <param name="fname"> imag </param>
+        </object>
+        <!-- <object type="jpg_image" name="processor_1"> -->
+        <!--     <object type="complex_palette" name="palette"> -->
+        <!--         <import> settings </import> -->
+        <!--         <param name="scale"> 10. </param> -->
+        <!--         <param name="part"> 0 </param> -->
+        <!--     </object> -->
+        <!--     <param name="fname"> real </param> -->
+        <!-- </object> -->
+        <!-- write .ascii image with n_x, n_x, Re(V), Im(V) -->
+        <!-- <object type="ascii_image" name="processor_2"> -->
+        <!--     <param name="write_imag"> 1 </param> -->
+        <!-- </object> -->
+    </object>
 </object>
