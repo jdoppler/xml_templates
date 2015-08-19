@@ -22,7 +22,7 @@
         <param name="r_nx"> $L/$dx </param>
 
         <!-- use Neumann or Dirichlet boundary conditions -->
-        <param name="neumann"> NEUMANN </param>
+        <param name="neumann"> 0 </param>
 
         <!-- real/imaginary potential -->
         <param name="Kappa0"> 0.0 </param>
@@ -207,12 +207,12 @@
     </object>
 
     <object type="draw_supercell" name="job_0">¬
-        <import>settings</import>¬
-        <param name="EF">$kF*$kF/2.0</param>¬
-        <insert name="H">H_lead</insert>¬
-        <param name="modeindex_min">0</param>¬
-        <param name="modeindex_step">1</param>¬
-        <param name="modeindex_N">floor($modes)</param>¬
+        <import> settings </import>¬
+        <param name="EF"> $kF*$kF/2.0 </param>¬
+        <insert name="H"> H_lead </insert>¬
+        <param name="modeindex_min"> 0 </param>¬
+        <param name="modeindex_step"> 1 </param>¬
+        <param name="modeindex_N"> floor($modes) </param>¬
     </object>¬
 
     <object type="ascii_states" name="job_1">¬
