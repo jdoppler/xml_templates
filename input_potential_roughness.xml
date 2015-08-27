@@ -349,8 +349,10 @@
         <!--     </object> -->
         <!--     <param name="fname"> real </param> -->
         <!-- </object> -->
+        <!-- <object type="average_image" name="processor_2"> -->
+        <!-- </object> -->
         <!-- write .ascii image with n_x, n_x, Re(V), Im(V) -->
-        <!-- <object type="ascii_image" name="processor_2"> -->
+        <!-- <object type="ascii_image" name="processor_3"> -->
         <!--     <param name="write_imag"> 1 </param> -->
         <!-- </object> -->
     </object>

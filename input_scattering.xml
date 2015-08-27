@@ -196,5 +196,7 @@
                 <param name="scale"> 0.0 </param>
             </object>
         </object>
+        <!-- <object type="average_image" name="processor_1"> -->
+        <!-- </object> -->
     </object>
 </object>
