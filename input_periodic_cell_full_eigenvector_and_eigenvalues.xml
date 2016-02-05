@@ -1,0 +1,238 @@
+<?xml version="1.0"?>
+<object type="Parameters" name="Eingabe">
+
+    <!-- global simulation name -->
+    <param name="file"> NAME </param>
+
+    <object type="Parameters" name="settings">
+        <param name="modes"> MODES </param>
+        <param name="points_per_halfwave"> PPHW </param>
+
+        <param name="W"> WIDTH </param>
+        <param name="L"> LENGTH </param>
+        <param name="lead_width"> $W </param>
+
+        <param name="kF"> $modes*$pi/$lead_width </param>
+        <param name="lead_length"> $W </param>
+        <param name="nyout"> $points_per_halfwave*$modes </param>
+        <param name="dx"> $W/($nyout+1) </param>
+        <param name="dy"> $dx </param>
+        <param name="pi"> 3.1415928 </param>
+        <param name="r_ny"> $W/$dx </param>
+        <param name="r_nx"> $L/$dx </param>
+
+        <!-- use Neumann or Dirichlet boundary conditions -->
+        <param name="neumann"> NEUMANN </param>
+
+        <!-- real/imaginary potential -->
+        <param name="Kappa0"> 0.0 </param>
+        <param name="Gamma0"> GAMMA0 </param>
+
+        <!-- potential vectors -->
+        <param name="N_file_potential"> N_FILE_POTENTIAL </param>
+        <param name="potential_real"> POTENTIAL_REAL </param>
+        <param name="potential_imag"> POTENTIAL_IMAG </param>
+
+        <!-- boundary vectors -->
+        <param name="N_file_boundary"> N_FILE_BOUNDARY </param>
+        <param name="boundary_upper"> BOUNDARY_UPPER </param>
+        <param name="boundary_lower"> BOUNDARY_LOWER </param>
+
+        <!-- parallelize Dyson scheme -->
+        <param name="do_single_slices"> 4 </param>
+        <!-- parallelize wavefunction plots -->
+        <param name="do_picture_slices"> 1 </param>
+    </object>
+
+    <!-- cavity -->
+    <object type="Block" name="geometry">
+        <object type="Tight_Binding" name="H">
+            <import> settings </import>
+            <param name="ny"> $r_ny </param>
+        </object>
+
+        <!-- border hamiltonian -->
+        <object type="Border_Hamiltonian" name="H_cut">
+            <import> settings </import>
+
+            <!-- upper boundary -->
+            <object type="modify_vector" name="upper">
+                <object type="input_vector" name="data">
+                    <import> settings </import>
+                    <param name="N"> $N_file_boundary </param>
+                    <param name="file"> #boundary_upper </param>
+                    <param name="format"> %*lf %lf </param>
+                </object>
+                <import>settings</import>
+                <param name="output"> upper.dat </param>
+                <param name="f(x)"> (x-$W)/$dx </param>
+                <param name="i(x)"> x*$N_file_boundary/$r_nx </param>
+            </object>
+
+            <!-- lower boundary -->
+            <object type="modify_vector" name="lower">
+                <object type="input_vector" name="data">
+                    <import> settings </import>
+                    <param name="N"> $N_file_boundary </param>
+                    <param name="file"> #boundary_lower </param>
+                    <param name="format"> %*lf %lf </param>
+                </object>
+                <import> settings </import>
+                <param name="output"> lower.dat </param>
+                <param name="f(x)"> -x/$dx </param>
+                <param name="i(x)"> x*$N_file_boundary/$r_nx </param>
+            </object>
+            <insert name="sub_H"> H </insert>
+        </object>
+
+        <!-- complex potential -->
+        <object type="xy_Potential" name="Absorber">
+            <!-- real potential -->
+            <object type="const_vector" name="data">
+                <import> settings </import>
+                <param name="nx"> $r_nx </param>
+                <param name="ny"> $r_ny </param>
+                <param name="potential"> $Kappa0 </param>
+                <param name="border_width"> 0.0 </param>
+                <param name="border_pot"> 0.0 </param>
+            </object>
+            <!-- imaginary potential -->
+            <!-- <object type="const_vector" name="data_imag"> -->
+            <!--     <import> settings </import> -->
+            <!--     <param name="nx"> $r_nx </param> -->
+            <!--     <param name="ny"> $r_ny </param> -->
+            <!--     <param name="potential"> $Gamma0 </param> -->
+            <!--     <param name="border_width"> 0.0 </param> -->
+            <!--     <param name="border_pot"> 0.0 </param> -->
+            <!-- </object> -->
+            <object type="modify_vector" name="data_imag">
+                    <object type="input_vector" name="data">
+                            <import> settings </import>
+                            <param name="file"> #potential_imag </param>
+                            <param name="N"> $N_file_potential </param>
+                            <param name="format"> %*lf %lf </param>
+                        </object>
+                    <import> settings </import>
+                    <param name="f(x)"> $Gamma0*x </param>
+                    <!-- <param name="i(x)"> x/$r_nx/$r_ny*$N_file_potential </param> -->
+                </object>
+        </object>
+
+        <object type="ExtPot_Decorator" name="H_Absorber">
+            <link name="sub_H"> H_cut </link>
+            <link name="Potential"> Absorber </link>
+        </object>
+
+        <object type="Rectangle" name="rect_0">
+            <import> settings </import>
+            <param name="nx">$r_nx</param>
+            <insert name="H">H_Absorber</insert>
+        </object>
+        <object type="periodic_cell_Hamiltonian" name="H_lead">
+            <import>settings</import>
+            <insert name="rect">rect_0</insert>
+            <object type="Interface" name="interface">
+                <import> settings </import>
+                <param name="ist_L">0</param>
+                <param name="ist_R">0</param>
+                <insert name="HI">geometry/H</insert>
+            </object>
+            <param name="EF"> $kF*$kF/2. </param>
+        </object>
+    </object>
+
+    <object type="forcegreencalc" name="job_0">
+        <import> settings </import>
+        <link name="rect">rect_0</link>
+        <param name="EF"> $kF*$kF/2. </param>
+    </object>
+
+    <object type="lead_states" name="job_1">
+        <import>settings</import>
+        <param name="EF"> $kF*$kF/2. </param>
+        <object type="periodic_cell_Hamiltonian" name="H">
+            <import>settings</import>
+            <insert name="rect">rect_0</insert>
+
+            <object type="Interface" name="interface">
+                <import> settings </import>
+                <param name="ist_L">0</param>
+                <param name="ist_R">0</param>
+                <insert name="HI">geometry/H</insert>
+            </object>
+
+            <param name="EF"> $kF*$kF/2. </param>
+        </object>
+    </object>
+
+    <object type="draw_supercell" name="job_2">
+        <import> settings </import>
+        <param name="EF"> $kF*$kF/2.0 </param>
+        <insert name="H"> H_lead </insert>
+        <param name="modeindex_min"> 0 </param>
+        <param name="modeindex_step"> 1 </param>
+        <param name="modeindex_N"> floor($modes) </param>
+    </object>
+
+    <object type="ascii_states" name="job_3">
+        <link name="geometry">geometry</link>
+    </object>
+
+    <object type="Image" name="job_4">
+        <param name="zoom">1.0</param>
+        <param name="n_start">0</param>
+        <param name="prepend_zero">1</param>
+
+        <param name="write_geometry">1</param>
+        <param name="write_potential">1</param>
+
+        <object type="jpg_image" name="processor_0">
+            <object type="parula_palette" name="palette">
+                <import> settings </import>
+                <param name="scale"> 0.01/($dx*$dy) </param>
+            </object>
+        </object>
+        <!-- <object type="jpg_image" name="processor_1"> -->
+            <!--     <param name="ppm_to_jpg"> 0 </param> -->
+            <!--     <object type="height_palette" name="palette"> -->
+                <!--     </object> -->
+            <!-- </object> -->
+    </object>
+
+    <!-- plot potential -->
+    <object type="Image" name="job_3">
+        <link name="geometry">geometry</link>
+
+        <param name="zoom">1.0</param>
+        <param name="n_start">0</param>
+        <param name="prepend_zero">1</param>
+
+        <param name="write_geometry">0</param>
+        <param name="write_potential">1</param>
+
+        <!-- important to have meaningful plots! -->
+        <param name="subtract_minimum">0</param>
+        <param name="subtract_average">1</param>
+
+        <object type="jpg_image" name="processor_0">
+            <object type="complex_palette" name="palette">
+                <import> settings </import>
+                <param name="scale"> 10. </param>
+                <param name="part"> 1 </param>
+            </object>
+            <param name="fname"> imag </param>
+        </object>
+        <!-- <object type="jpg_image" name="processor_1"> -->
+        <!--     <object type="complex_palette" name="palette"> -->
+        <!--         <import> settings </import> -->
+        <!--         <param name="scale"> 10. </param> -->
+        <!--         <param name="part"> 0 </param> -->
+        <!--     </object> -->
+        <!--     <param name="fname"> real </param> -->
+        <!-- </object> -->
+        <!-- write .ascii image with n_x, n_x, Re(V), Im(V) -->
+        <!-- <object type="ascii_image" name="processor_2"> -->
+        <!--     <param name="write_imag"> 1 </param> -->
+        <!-- </object> -->
+    </object>
+</object>
